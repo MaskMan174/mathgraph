@@ -1,4 +1,5 @@
 from sympy import *
+from math import *
 
 
 def extr(f):
@@ -30,7 +31,7 @@ def gr_and_leas(func, sol, a, b):
         if (a <= i) and (b >= i):
             arr.append(func(i))
     sort(arr)
-    return arr[0], arr[len(arr)]
+    return arr[0], arr[len(arr)-1]
 
 
 def s_monte_carlo(func, a, b, h, h0, iterations):
@@ -40,5 +41,5 @@ def s_monte_carlo(func, a, b, h, h0, iterations):
         x, y = random() * abs(a - b) + a, random() * (h - h0) + h0
         if (func(x) < y and (y < 0)) or (func(x) > y and (y > 0)):
             in_p += 1
-    result = (b - a) * (h - h0) * (in_p / iterations)
+    result = abs((b - a) * (h - h0) * (in_p / iterations))
     return result

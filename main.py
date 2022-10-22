@@ -1,9 +1,9 @@
-import matplotlib
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import QPixmap
 from monte_carlo import *
 from func_from_input import *
 import sys
+from math import *
 
 
 class MainWindow(QMainWindow):
@@ -50,17 +50,19 @@ class MainWindow(QMainWindow):
 
         self.setCentralWidget(container)
 
-        def ready(self):
-            funcs = func_from_in(self.input.text(), int(self.input1.text()), int(self.input2.text()))
-            f, func, graph, arguments, count = funcs[0], funcs[1], funcs[3], funcs[4], 10000000
-            scope_of_values = gr_and_leas(func, extr(f), int(self.input1.text()), int(self.input2.text()))
-            greatest, least = scope_of_values[0], scope_of_values[1]
-            s_func_by_mc = s_monte_carlo(func, int(self.input1.text()), int(self.input2.text()), greatest, least, count)
-            '''bbo = approx_par(int(self.input1.text()), int(self.input2.text()), self.input.text())'''
-            self.label.setText(str(s_func_by_mc))
-            '''self.label1.setText(str(bbo))'''
-            graph(arguments[0], arguments[1], arguments[3], 0)
-            self.pic.setPixmap(QPixmap("saved_figure.png"))
+    def ready(self):
+        funcs = func_from_in(self.input.text())
+        print(funcs)
+        f, func = funcs[0], funcs[1]
+        count = 10000000
+        scope_of_values = gr_and_leas(func, extr(f), int(self.input1.text()), int(self.input2.text()))
+        greatest, least = scope_of_values[0], scope_of_values[1]
+        s_func_by_mc = s_monte_carlo(func, int(self.input1.text()), int(self.input2.text()), greatest, least, count)
+        '''bbo = approx_par(int(self.input1.text()), int(self.input2.text()), self.input.text())'''
+        self.label.setText(str(s_func_by_mc))
+        '''self.label1.setText(str(bbo))'''
+        show_s_by_func(func, int(self.input1.text()), int(self.input2.text()), 0)
+        self.pic.setPixmap(QPixmap("saved_figure.png"))
 
 
 def main():

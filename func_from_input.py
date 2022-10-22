@@ -1,11 +1,15 @@
 from sympy import *
 import numpy as np
+from math import *
 
 
-def func_from_in(s: str, a, b):
+def func_from_in(s: str):
+    x = symbols('x')
     f = sympify(s)
-    func = lambdify(f)
-    return f, func, show_s_by_func, (func, a, b, 0)
+    print(f)
+    func = lambdify(x, f)
+    print(func)
+    return f, func
 
 
 def show_s_by_func(func, a, b, h0=0):
